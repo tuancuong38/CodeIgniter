@@ -26,5 +26,18 @@ class Users_Model extends CI_Model {
 		}
 	}
 
+	public function check_login($data){
+		try {
+			$arrData = array(
+				'email' => $data['email'],
+				'password' => md5($data['pass'])
+			);
+			$query = $this->db->get_where('user', $arrData);
+			return true;
+		} catch (Exception $e) {
+			echo 'login fail';
+			return false;
+		}
+	}
 	
 }

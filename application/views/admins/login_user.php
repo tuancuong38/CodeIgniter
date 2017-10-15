@@ -30,21 +30,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>Đăng Ký Thành Viên</h1>
+	<h1>Login user</h1>
 
 	<div id="body">
-		<form action="createUser">
+		<form action="login" method="POST">
             <div >
                 <span>Email:</span> 
-                <input type="text" name="lastName">
+                <input type="text" name="email">
+                <?php echo ''.form_error('email'); ?>
             </div>
             <div class="marginTop">
                 <span>Password:</span> 
-                <input type="text" name="firstName">
+                <input type="text" name="pass">
             </div>
             
             <div class="divButton">
-                <input type="Submit" value="Create">
+                <input type="Submit" value="login">
                 <input type="button" value="Cancel">
             </div>
         </form>

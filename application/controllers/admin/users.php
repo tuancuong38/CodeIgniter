@@ -58,4 +58,29 @@ class Users extends CI_Controller {
 	public function forgetPassword() {
 		echo('get password');
 	}
+
+	public function login(){
+		$this->load->model('users_model');
+		$this->load->helper(array('form', 'url'));
+		if ($_SERVER["REQUEST_METHOD"] == "POST"){
+			$this->form_validation->set_rules('email', 'Email', 'required');		
+			
+			if($this->form_validation->run() == FALSE){
+				$this->form_validation->set_message('email', 'Email error');
+			} else {
+				$data = array(
+					'email' => $this->input->post('email'),
+					'pass' => $this->input->post('pass'),
+				);
+				
+				if($this->users_model->check_login($data)) {
+					$this->load->view('admins/create_user');
+				} else {
+					$this->load->view('admins/login_user');
+				}
+				$data['message'] = 'Data inserted successfully';
+			}
+		}
+		$this->load->view('admins/login_user');
+	}
 }
