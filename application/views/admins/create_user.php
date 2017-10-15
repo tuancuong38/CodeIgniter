@@ -2,7 +2,7 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!doctype html>
-<html lang="{{ config('app.locale') }}">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,35 +68,36 @@
             }
         </style>
         <script>
-            function cancelForm() {
-                document.getElementById("createFrom").reset();
-            }
+            // function cancelForm() {
+            //     document.getElementById("createFrom").reset();
+            // }
             
-            $(document).ready(function (){
-                $('#register').click(function () {
-                    $.ajax({
-                        url: "{{ secure_url('/create-user/insert') }}",
-                        type: 'POST',
-                        data: $('#createFrom').serialize(),
-                        success: function(response) {
-                            console.log(response);
-                            var err = document.getElementsByClassName("error");
-                            for(var i = 0; i < err.length; i++) {
-                                err[i].innerHTML = '';
-                            }
-                            if(response.success){
-                                document.getElementById('message').innerHTML = response.message;
-                                document.getElementById("createFrom").reset();
-                            } else {
-                                for(var key in response.message) {
-                                    document.getElementById('message').innerHTML = '';
-                                    document.getElementById(key).innerHTML = response.message[key];
-                                }
-                            }
-                        },
-                    });
-                });
-            });
+            // $(document).ready(function (){
+            //     $('#register').click(function () {
+            //         console.log();
+            //         // $.ajax({
+            //         //     url: "{{ secure_url('/create-user/insert') }}",
+            //         //     type: 'POST',
+            //         //     data: $('#createFrom').serialize(),
+            //         //     success: function(response) {
+            //         //         console.log(response);
+            //         //         var err = document.getElementsByClassName("error");
+            //         //         for(var i = 0; i < err.length; i++) {
+            //         //             err[i].innerHTML = '';
+            //         //         }
+            //         //         if(response.success){
+            //         //             document.getElementById('message').innerHTML = response.message;
+            //         //             document.getElementById("createFrom").reset();
+            //         //         } else {
+            //         //             for(var key in response.message) {
+            //         //                 document.getElementById('message').innerHTML = '';
+            //         //                 document.getElementById(key).innerHTML = response.message[key];
+            //         //             }
+            //         //         }
+            //         //     },
+            //         // });
+            //     });
+            // });
             
         </script>
     </head>
@@ -106,12 +107,14 @@
             <div class="main">
                 <p class="success" id="message"></p>
                 
-                <form class="form" id="createFrom" method="POST">
-                    <div class="item @if ($errors->has('userId')) has-error @endif">
-
+                <form class="form" id="createFrom" method="POST" >
+                    <div class="item">
+                    <?php echo validation_errors(); ?>
+                
                         <label>Họ:</label>
-                        <input type="text" name="lastName" ></br>
-                        <p class="error" id="lastName"></p>
+                        <input type="text" name="lastName"  value="<?php echo set_value('lastName') ?>"></br>
+                        <?php echo 'bbb'.form_error('lastName'); ?>
+                       
                     </div>
                     <div class="item">
 
@@ -122,8 +125,8 @@
                     <div class="item">
 
                         <label>Ngày sinh:</label>
-                        <input type="date" name="birthday" ></br>
-                        <p class="error" id="birthday"></p> 
+                        <input type="date" name="birth" ></br>
+                        <p class="error" id="birth"></p> 
                     </div>
                     <div class="item">
 
@@ -134,8 +137,8 @@
                     <div class="item">
 
                         <label>Mật khẩu :</label>
-                        <input type="password" name="password" ></br>
-                        <p class="error" id="password"></p> 
+                        <input type="password" name="pass" ></br>
+                        <p class="error" id="pass"></p> 
                     </div>
                     <div class="item">
 
@@ -160,11 +163,9 @@
                     </div>
 
                     <div class="button">
-
-                        <input type="button" name="register" id="register" value="Register">
+                        <input type="submit" name="register" id="register" value="Register">
                         <div class="none"></div>
                         <input type="button" name="cancel" id="cancel" value="Cancel" onclick="cancelForm()">
-
                     </div>
                 </form>
             </div>
