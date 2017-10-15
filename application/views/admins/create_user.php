@@ -119,19 +119,19 @@
                     <div class="item">
 
                         <label>Tên :</label>
-                        <input type="text" name="firstName" ></br>
+                        <input type="text" name="firstName" value="<?php echo set_value("firstName")?>"></br>
                         <p class="error" id="firstName" ></p> 
                     </div>
                     <div class="item">
 
                         <label>Ngày sinh:</label>
-                        <input type="date" name="birth" ></br>
+                        <input type="date" name="birth" value="<?php echo set_value("birth")?>"></br>
                         <p class="error" id="birth"></p> 
                     </div>
                     <div class="item">
 
                         <label>Email :</label>
-                        <input type="email" name="email" ></br>
+                        <input type="email" name="email" value="<?php echo set_value("email")?>"></br>
                         <p class="error" id="email"></p> 
                     </div>
                     <div class="item">
@@ -152,13 +152,13 @@
                     <div class="item">
 
                         <label>Phone :</label>
-                        <input type="tel" name="phone" ></br>
+                        <input type="tel" name="phone" value="<?php echo set_value("phone")?>"></br>
                         <p class="error" id="phone"></p> 
                     </div>
                     <div class="item">
 
                         <label>Địa chỉ :</label>
-                        <input type="text" name="address" ></br>
+                        <input type="text" name="address" value="<?php echo set_value("address")?>"></br>
                         <p class="error" id="address"></p> 
                     </div>
 
