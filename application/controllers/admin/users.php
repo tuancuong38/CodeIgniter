@@ -15,23 +15,22 @@ class Users extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			
-			// $this->form_validation->set_rules('lastName', 'Last Name', 'required|min_length[5]');
-			// $this->form_validation->set_rules('firstName', 'First Name', 'required');
-			// $this->form_validation->set_rules('birth', 'Birthday', 'required');
+			$this->form_validation->set_rules('lastName', 'Last Name', 'required');
+			$this->form_validation->set_rules('firstName', 'First Name', 'required');
+			$this->form_validation->set_rules('birth', 'Birthday', 'required');
 			$this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.email]');			
-			// $this->form_validation->set_rules('permis', 'Birthday', 'required');
-			// $this->form_validation->set_rules('phone', 'Phone', 'required');
-			// $this->form_validation->set_rules('address', 'address', 'required');
+			$this->form_validation->set_rules('permis', 'Birthday', 'required');
+			$this->form_validation->set_rules('phone', 'Phone', 'required');
+			$this->form_validation->set_rules('address', 'address', 'required');
 			if($this->form_validation->run() == FALSE){
 				
-				// $this->form_validation->set_message('lastName', 'Last Name error');
-				// $this->form_validation->set_message('firstName', 'First Name error');
-				// $this->form_validation->set_message('birth', 'Birthday error');
+				$this->form_validation->set_message('lastName', 'Last Name error');
+				$this->form_validation->set_message('firstName', 'First Name error');
+				$this->form_validation->set_message('birth', 'Birthday error');
 				$this->form_validation->set_message('email', 'Email error');
-				// $this->form_validation->set_message('permis', 'Birthday error');
-				// $this->form_validation->set_message('phone', 'Phone error');
-				// $this->form_validation->set_message('address', 'address error');
-				//echo 'assdas'; exit;
+				$this->form_validation->set_message('permis', 'Birthday error');
+				$this->form_validation->set_message('phone', 'Phone error');
+				$this->form_validation->set_message('address', 'address error');
 			} else {
 				$data = array(
 					'lastName' => $this->input->post('lastName'),
@@ -45,6 +44,7 @@ class Users extends CI_Controller {
 				);
 
 				$this->users_model->create($data);
+				$data['message'] = 'Data inserted successfully';
 			}
 		}
 		$this->load->view('admins/create_user');
