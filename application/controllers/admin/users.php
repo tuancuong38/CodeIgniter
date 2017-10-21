@@ -10,7 +10,6 @@ class Users extends CI_Controller {
 	}
 
 	public function create() {
-		
 		$this->load->model('users_model');
 		$this->load->helper(array('form', 'url'));
 		if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -72,15 +71,32 @@ class Users extends CI_Controller {
 					'email' => $this->input->post('email'),
 					'pass' => $this->input->post('pass'),
 				);
-				
-				if($this->users_model->check_login($data)) {
-					$this->load->view('admins/create_user');
+				$query = $this->users_model->check_login($data);
+				if($query) {
+					$token = $query['token'];
+					$this->session->set_userdata('token' , $token);
+					redirect('/admin/users/home');
 				} else {
 					$this->load->view('admins/login_user');
 				}
 				$data['message'] = 'Data inserted successfully';
 			}
+		} 
+			$this->load->view('admins/login_user');
+	}
+
+	public function logout() {
+		$this->session->unset_userdata('');
+		redirect('/admin/users/login');
+	}
+	 
+	public function home() {
+		$token = $this->session->userdata('token');
+		if($token){
+			var_dump('token', $token); exit;
+		} else {
+			echo ' None token ';exit;
 		}
-		$this->load->view('admins/login_user');
+		$this->load->view('admins/home');
 	}
 }

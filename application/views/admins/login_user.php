@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="marginTop">
                 <span>Password:</span> 
-                <input type="text" name="pass">
+                <input type="password" name="pass">
             </div>
             
             <div class="divButton">
@@ -49,6 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <input type="button" value="Cancel">
             </div>
         </form>
+        <div>
+            <a href="#"> Create user</a>
+            <a href="#"> Forget password</a>
+        </div>
 	</div>
 
 </div>
