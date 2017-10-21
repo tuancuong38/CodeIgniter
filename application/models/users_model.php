@@ -4,6 +4,7 @@ class Users_Model extends CI_Model {
 
 	public function create($data)
 	{
+	
 		$today = date('Y-m-d');
 		$arrData = array(
 			'email' => $data['email'],
@@ -14,7 +15,7 @@ class Users_Model extends CI_Model {
 			'birth_day' => $data['birth'],
 			'phone' => $data['phone'],
 			'address' => $data['address'],
-			'token' => md5($data['pass']),
+			'token' => md5(microtime()) . rand(0,26),
 			'created_at' => $today,
 			'updated_at' => $today
 		);
@@ -27,17 +28,31 @@ class Users_Model extends CI_Model {
 	}
 
 	public function check_login($data){
-		try {
+	
 			$arrData = array(
 				'email' => $data['email'],
 				'password' => md5($data['pass'])
 			);
-			$query = $this->db->get_where('user', $arrData);
-			return true;
-		} catch (Exception $e) {
-			echo 'login fail';
+			$this->db->where('email', $data['email']);
+			$this->db->where('password', md5($data['pass']));
+			$query = $this->db->get('user');
+			// var_dump($this->db->last_query());die;
+			if($query!= NULL && $query->num_rows() > 0 ){
+				// var_dump($query->row_array());exit;
+				return $query->row_array();
+			}
+			echo('fail');
 			return false;
+	
+	}
+
+	public function getUser($token){
+		$this->db->where('token', $token);
+		$query = $this->db->get('user');
+		if($query != NULL && $query->num_rows() > 0) {
+			return $query->row_array();
 		}
+		return false;
 	}
 	
 }
